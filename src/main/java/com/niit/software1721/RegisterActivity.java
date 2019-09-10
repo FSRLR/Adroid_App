@@ -51,11 +51,15 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this,"密码不能为空",Toast.LENGTH_LONG).show();
                 }else if (!password.equals(pwdAgain)){
                     Toast.makeText(RegisterActivity.this,"两次密码必须一致",Toast.LENGTH_LONG).show();
+                }else if (isExist(userName)){
+                    Toast.makeText(RegisterActivity.this,"用户名已存在",Toast.LENGTH_LONG).show();
                 }else{
+                    //注册成功之后
                     savePref(userName, MD5Utils.md5(password));
-                    Intent intent=new Intent(RegisterActivity.this,LoginActivity.class);
+                    Intent intent=new Intent();
                     intent.putExtra("username",userName);
-                    startActivity(intent);
+                    setResult(RESULT_OK,intent);
+                    finish();
                 }
             }
         });
@@ -84,10 +88,23 @@ public class RegisterActivity extends AppCompatActivity {
     private void savePref(String userName, String password) {
         SharedPreferences sp =getSharedPreferences("userInfo",MODE_PRIVATE);
         SharedPreferences.Editor editor=sp.edit();
-        editor.putString("username",userName);
-        editor.putString("password",password);
+//        editor.putString("username",userName);
+//        editor.putString("password",password);
+        editor.putString(userName,password);
         editor.apply();
     }
+
+    /**
+     * 判断用户是否存在
+     * @parm userName 用户名
+     * @return true ：false
+     */
+    private boolean isExist(String userName){
+        SharedPreferences sp=getSharedPreferences("userInfo",MODE_PRIVATE);
+        String pwd=sp.getString(userName,"");
+        return !TextUtils.isEmpty(pwd);
+    }
+
 
     private void initView() {
         etUserName = findViewById(R.id.et_user_name);

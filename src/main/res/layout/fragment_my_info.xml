@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MyInfoFragment">
+
+    <LinearLayout
+        android:id="@+id/tv_headLayout"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:background="#2E8B57"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/avatar2" />
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tv_history"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="230dp">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="260dp"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="18dp"
+            android:textColor="#AAAAAA"
+            android:text="播放记录"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            android:textSize="30dp"
+            android:textColor="#AAAAAA"
+            android:text=">"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tv_setting"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="281dp">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="260dp"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="18dp"
+            android:textColor="#AAAAAA"
+            android:text="设置"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            android:textSize="30dp"
+            android:textColor="#AAAAAA"
+            android:text=">"/>
+    </LinearLayout>
+
+
+</FrameLayout>

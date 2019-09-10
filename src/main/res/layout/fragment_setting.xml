@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingFragment">
+
+    <LinearLayout
+        android:id="@+id/tv_headLayout"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@android:color/darker_gray"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/tv_username"
+            android:layout_width="178dp"
+            android:layout_height="172dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/avatar" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tv_history"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="300dp">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="260dp"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="26dp"
+            android:textColor="#AAAAAA"
+            android:text="播放记录"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            android:textSize="30dp"
+            android:textColor="#AAAAAA"
+            android:text=">"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tv_setting"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="361dp">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="260dp"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="26dp"
+            android:textColor="#AAAAAA"
+            android:text="设置"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            android:textSize="30dp"
+            android:textColor="#AAAAAA"
+            android:text=">"/>
+    </LinearLayout>
+
+
+</FrameLayout>
