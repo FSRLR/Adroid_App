@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyInfoFragment">
+    tools:context=".fragment.MyInfoFragment">
 
     <LinearLayout
         android:id="@+id/tv_headLayout"
@@ -23,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:textSize="20sp"
             android:text="" />
     </LinearLayout>
@@ -33,7 +34,8 @@
         android:layout_height="50dp"
         android:layout_marginTop="230dp">
         <ImageView
-            android:layout_width="40dp"
+            android:background="@drawable/reload_time"
+            android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginLeft="20dp"
             android:layout_gravity="center"/>
@@ -45,42 +47,52 @@
             android:textSize="18dp"
             android:textColor="#AAAAAA"
             android:text="播放记录"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:paddingTop="10dp"
-            android:textSize="30dp"
-            android:textColor="#AAAAAA"
-            android:text=">"/>
+            android:background="@drawable/right"
+            android:layout_gravity="center"/>
     </LinearLayout>
 
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="280dp"
+        android:background="#E3E3E3" />
     <LinearLayout
         android:id="@+id/tv_setting"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_marginTop="281dp">
 
         <ImageView
-            android:layout_width="40dp"
+            android:background="@drawable/setting"
+            android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginLeft="20dp"
             android:layout_gravity="center"/>
         <TextView
             android:layout_width="260dp"
             android:layout_height="match_parent"
-            android:paddingTop="10dp"
+            android:paddingTop="15dp"
             android:layout_marginLeft="30dp"
             android:textSize="18dp"
             android:textColor="#AAAAAA"
             android:text="设置"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:paddingTop="10dp"
-            android:textSize="30dp"
-            android:textColor="#AAAAAA"
-            android:text=">"/>
+            android:background="@drawable/right"
+            android:layout_gravity="center"/>
     </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="341dp"
+        android:background="#E3E3E3" />
 
 
 </FrameLayout>

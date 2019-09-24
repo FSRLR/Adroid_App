@@ -1,10 +1,10 @@
-package com.niit.software1721;
+package com.niit.software1721.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.niit.software1721.R;
 import com.niit.software1721.utils.MD5Utils;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -25,7 +26,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText etUserName,etPassword,etPwdAgain;
     private Button btnRegister;
-    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

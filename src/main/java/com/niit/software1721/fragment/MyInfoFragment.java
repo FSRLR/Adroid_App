@@ -1,4 +1,4 @@
-package com.niit.software1721;
+package com.niit.software1721.fragment;
 
 
 import android.app.Activity;
@@ -11,9 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.niit.software1721.R;
+import com.niit.software1721.activity.LoginActivity;
+import com.niit.software1721.activity.SettingActivity;
+import com.niit.software1721.activity.UserInfoActivity;
 
 
 /**
@@ -35,7 +39,7 @@ public class MyInfoFragment extends Fragment {
 
     //获取登录的状态
     private boolean checkLoginStatus(){
-        SharedPreferences sp=mContext.getSharedPreferences("loginInfo",Context.MODE_PRIVATE);
+        SharedPreferences sp=mContext.getSharedPreferences("userInfo",Context.MODE_PRIVATE);
         return sp.getBoolean("isLogin",false);
     }
 
@@ -65,9 +69,10 @@ public class MyInfoFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (isLogin){
-
+                    Intent intent=new Intent(mContext, UserInfoActivity.class);
+                    startActivity(intent);
                 }else {
-                    Intent intent=new Intent(mContext,LoginActivity.class);
+                    Intent intent=new Intent(mContext, LoginActivity.class);
                     startActivityForResult(intent,1);
                 }
             }
@@ -88,7 +93,7 @@ public class MyInfoFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (isLogin){
-                    Intent intent = new Intent(mContext,SettingActivity.class);
+                    Intent intent = new Intent(mContext, SettingActivity.class);
                     startActivity(intent);
                 }else {
                     Toast.makeText(mContext,"请先登录",Toast.LENGTH_LONG).show();
@@ -107,8 +112,8 @@ public class MyInfoFragment extends Fragment {
     }
 
     private String readLoginInfo(){
-        SharedPreferences sp=mContext.getSharedPreferences("loginInfo",Context.MODE_PRIVATE);
-        return sp.getString("loginUser","");
+        SharedPreferences sp=mContext.getSharedPreferences("userInfo",Context.MODE_PRIVATE);
+        return sp.getString("LoginUser","");
     }
 
     @Override

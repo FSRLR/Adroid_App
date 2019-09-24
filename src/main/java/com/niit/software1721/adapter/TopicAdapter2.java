@@ -1,0 +1,58 @@
+package com.niit.software1721.adapter;
+
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.niit.software1721.R;
+import com.niit.software1721.entity.Topic;
+
+import java.util.List;
+
+public class TopicAdapter2 extends RecyclerView.Adapter<TopicAdapter2.ViewHolder> {
+    private  Context context;
+    private  List<Topic> topics;
+
+    static  class ViewHolder extends RecyclerView.ViewHolder{
+        TextView tvOrder,tvTitle,tvSubTitle;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            tvOrder=itemView.findViewById(R.id.tv_order);
+            tvTitle=itemView.findViewById(R.id.tv_title);
+            tvSubTitle=itemView.findViewById(R.id.tv_sub_title);
+        }
+    }
+
+    public TopicAdapter2(Context context,List<Topic> topics){
+        this.context=context;
+        this.topics=topics;
+
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View view= LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.item_topic,viewGroup,false);
+        ViewHolder holder=new ViewHolder(view);
+        return holder;
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder, int i) {
+        Topic topic=topics.get(i);
+        viewHolder.tvOrder.setText(String.valueOf(i+1));
+        viewHolder.tvTitle.setText(topic.getTitle());
+        viewHolder.tvSubTitle.setText(topic.getSubTitle());
+    }
+
+    @Override
+    public int getItemCount() {
+        return topics.size();
+    }
+
+}
