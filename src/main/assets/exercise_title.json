@@ -2,76 +2,91 @@
   {
     "id": 1,
     "title": "第1章 Android基础入门",
-    "subTitle": "共计5题"
+    "subTitle": "共计5题",
+    "bgColor": "#0099FF"
   },
   {
     "id": 2,
     "title": "第2章 探究活动Activity",
-    "subTitle": "共计5题"
+    "subTitle": "共计5题",
+    "bgColor": "#8F33CC"
   },
   {
     "id": 3,
     "title": "第3章 Android UI开发",
-    "subTitle": "共计5题"
+    "subTitle": "共计5题",
+    "bgColor": "#EE113D"
   },
   {
     "id": 4,
     "title": "第4章 探究碎片Fragment",
-    "subTitle": "共计5题"
+    "subTitle": "共计5题",
+    "bgColor": "#66998F"
   },
   {
     "id": 5,
     "title": "第5章 广播接收者",
-    "subTitle": "共计5题"
+    "subTitle": "共计5题",
+    "bgColor": "#B39E4D"
   },
   {
     "id": 6,
     "title": "第6章 数据存储",
-    "subTitle": "共计5题"
+    "subTitle": "共计5题",
+    "bgColor": "#EE9611"
   },
   {
     "id": 7,
     "title": "第7章 内容提供者",
-    "subTitle": "共计5题"
+    "subTitle": "共计5题",
+    "bgColor": "#DDDD22"
   },
   {
     "id": 8,
     "title": "第8章 手机多媒体",
-    "subTitle": "共计5题"
+    "subTitle": "共计5题",
+    "bgColor": "#887B77"
   },
   {
     "id": 9,
     "title": "第9章 网络编程",
-    "subTitle": "共计5题"
+    "subTitle": "共计5题",
+    "bgColor": "#2BD5B3"
   },
   {
     "id": 10,
     "title": "第10章 服务",
-    "subTitle": "共计5题"
+    "subTitle": "共计5题",
+    "bgColor": "#8CBB44"
   },
   {
     "id": 11,
     "title": "第11章 基于位置的服务",
-    "subTitle": "共计5题"
+    "subTitle": "共计5题",
+    "bgColor": "#421AE6"
   },
   {
     "id": 12,
     "subTitle": "共计5题",
-    "title": "第12章 Material Design实战"
+    "title": "第12章 Material Design实战",
+    "bgColor": "#AA5577"
   },
   {
     "id": 13,
     "title": "第13章 高级技巧",
-    "subTitle": "共计5题"
+    "subTitle": "共计5题",
+    "bgColor": "#3CC4A9"
   },
   {
     "id": 14,
     "title": "第14章 开发天气App",
-    "subTitle": "共计5题"
+    "subTitle": "共计5题",
+    "bgColor": "#5E6BA2"
   },
   {
     "id": 15,
     "title": "第15章 项目发布上线",
-    "subTitle": "共计5题"
+    "subTitle": "共计5题",
+    "bgColor": "#918A6F"
   }
 ]

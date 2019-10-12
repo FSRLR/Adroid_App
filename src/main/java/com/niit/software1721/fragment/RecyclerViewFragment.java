@@ -1,6 +1,7 @@
 package com.niit.software1721.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 
 import com.alibaba.fastjson.JSON;
 import com.niit.software1721.R;
+import com.niit.software1721.activity.TopicDetailActivity;
 import com.niit.software1721.adapter.TopicAdapter;
 import com.niit.software1721.adapter.TopicAdapter2;
 import com.niit.software1721.entity.Topic;
@@ -62,6 +64,23 @@ public class RecyclerViewFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         TopicAdapter2 adapter=new TopicAdapter2(getActivity(),topics);
         recyclerView.setAdapter(adapter);
+
+        //设置监听器
+        adapter.setOnItemClickListener(new TopicAdapter2.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Topic topic=topics.get(position);
+                Intent intent=new Intent(getContext(), TopicDetailActivity.class);
+                intent.putExtra("id",topic.getId());
+                intent.putExtra("title",topic.getTitle());
+                getContext().startActivity(intent);
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+
+            }
+        });
         return view;
     }
 

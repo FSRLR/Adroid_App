@@ -7,6 +7,7 @@ public class Topic implements Serializable {
     private String title;
     private String subTitle;
     private int background;
+    private String bgColor;
 
     public Topic(String title, String subTitle, int background) {
         this.title = title;
@@ -57,5 +58,13 @@ public class Topic implements Serializable {
                 ", subTitle='" + subTitle + '\'' +
                 ", background=" + background +
                 '}';
+    }
+
+    public String getBgColor() {
+        return bgColor;
+    }
+
+    public void setBgColor(String bgColor) {
+        this.bgColor = bgColor;
     }
 }

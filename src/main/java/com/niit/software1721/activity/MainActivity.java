@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.niit.software1721.fragment.BlankFragment;
+import com.niit.software1721.fragment.CourseFragment;
 import com.niit.software1721.fragment.MyInfoFragment;
 import com.niit.software1721.R;
 import com.niit.software1721.fragment.RecyclerViewFragment;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         fragments = new SparseArray<>();
         fragments.put(R.id.btn_me,MyInfoFragment.newInstance());
         fragments.put(R.id.btn_topic, RecyclerViewFragment.newInstance("Activity向Fragment传值"));
+        fragments.put(R.id.btn_favor, CourseFragment.newInstance());
         //加载默认的Fragment
         replaceFragment(fragments.get(R.id.btn_me));
     }
