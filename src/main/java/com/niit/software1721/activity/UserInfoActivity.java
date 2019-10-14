@@ -1,9 +1,17 @@
 package com.niit.software1721.activity;
 
+import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.niit.software1721.R;
 import com.niit.software1721.entity.User;
 import com.niit.software1721.service.UserInfoService;
@@ -19,12 +28,22 @@ import com.niit.software1721.service.UserInfoServiceImpl;
 import com.niit.software1721.utils.SharedUtils;
 import com.niit.software1721.utils.StatusUtils;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.List;
 
 public class UserInfoActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int MODIFY_NICKNAME = 1;
     private static final int MODIFY_SIGNATURE = 2;
+
+    private static final String FILE_NAME="userInfo.txt";
 
 
     private TextView tvNickname,tvSignature,tvUserName,tvSex;
@@ -50,6 +69,9 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         spUsername= SharedUtils.readValue(this,"LoginUser");
         service=new UserInfoServiceImpl(this);
         userInfo= service.get(spUsername);
+        userInfo=readFromInternal();
+        userInfo=readPrivateExStorage();
+        userInfo=readPublicExternalStorage();
         if (userInfo==null){
             userInfo=new User();
             userInfo.setUsername(spUsername);
@@ -58,6 +80,9 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
             userInfo.setSex("男");
 
             service.save(userInfo);
+            saveToInternal(userInfo);
+            savePrivateExStorage(userInfo);
+            savePublicExternalStorage(userInfo);
         }
     }
 
@@ -120,6 +145,8 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
                         tvSex.setText(sex);
                         userInfo.setSex(sex);
                         service.modify(userInfo);
+                        saveToInternal(userInfo);
+                        savePrivateExStorage(userInfo);
                         dialogInterface.dismiss();
                     }
                 }).show();
@@ -152,6 +179,8 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
                     tvNickname.setText(newNick);
                     userInfo.setNickname(newNick);
                     service.modify(userInfo);
+                    saveToInternal(userInfo);
+                    savePrivateExStorage(userInfo);
                 }
                 break;
             case MODIFY_SIGNATURE:
@@ -160,8 +189,145 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
                     tvSignature.setText(newSignature);
                     userInfo.setSignature(newSignature);
                     service.modify(userInfo);
+                    saveToInternal(userInfo);
+                    savePrivateExStorage(userInfo);
                 }
                 break;
+        }
+    }
+
+    private User readFromInternal() {
+        User user = null;
+        try {
+            FileInputStream in = this.openFileInput(FILE_NAME);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            String data = reader.readLine();
+            user = JSON.parseObject(data, User.class);
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    private void saveToInternal(User user){
+        try {
+            FileOutputStream out=this.openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
+            BufferedWriter writer=new BufferedWriter(new OutputStreamWriter(out));
+            writer.write(JSON.toJSONString(user));
+            writer.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    private User readPrivateExStorage() {
+        User user = null;
+        try {
+            File file=new File(getExternalFilesDir(""),FILE_NAME);
+            if (!file.exists()){
+                return null;
+            }
+            FileInputStream in = new FileInputStream(file);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            String data = reader.readLine();
+            user = JSON.parseObject(data, User.class);
+            reader.close();
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    private void savePrivateExStorage(User user){
+        try {
+            File file=new File(getExternalFilesDir(""),FILE_NAME);
+            FileOutputStream out=new FileOutputStream(file);
+            BufferedWriter writer=new BufferedWriter(new OutputStreamWriter(out));
+            writer.write(JSON.toJSONString(user));
+            writer.flush();
+            writer.close();
+            out.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    private static final int REQUEST_READ_USERINFO=101;
+    private static final int REQUEST_WRITE_USERINFO=102;
+    private void savePublicExternalStorage(User user){
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        REQUEST_WRITE_USERINFO);
+                return;
+            }
+        }
+        saveUserInfo(user);
+    }
+
+    private User readPublicExternalStorage(){
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        REQUEST_READ_USERINFO);
+                return null;
+            }
+        }
+        return readUserInfo();
+
+    }
+
+    private void saveUserInfo(User user){
+        try {
+            File file=new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),FILE_NAME);
+            FileOutputStream out=new FileOutputStream(file);
+            BufferedWriter writer=new BufferedWriter(new OutputStreamWriter(out));
+            writer.write(JSON.toJSONString(user));
+            writer.flush();
+            writer.close();
+            out.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    private User readUserInfo(){
+        User user=null;
+        try {
+            File file=new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),FILE_NAME);
+            if (!file.exists()){
+                return null;
+            }
+            FileInputStream in = new FileInputStream(file);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            String data = reader.readLine();
+            user = JSON.parseObject(data, User.class);
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return user;
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (grantResults.length==0 || grantResults[0]!=PackageManager.PERMISSION_GRANTED){
+            Toast.makeText(this,"申请权限被拒绝，无法执行操作",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (requestCode==REQUEST_READ_USERINFO){
+            userInfo=readUserInfo();
+        }else if (requestCode==REQUEST_WRITE_USERINFO){
+            saveUserInfo(userInfo);
         }
     }
 }
