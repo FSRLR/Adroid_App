@@ -48,5 +48,4 @@
             android:checked="true"
             android:text="我" />-->
     </RadioGroup>
-
 </RelativeLayout>

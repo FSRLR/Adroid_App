@@ -1,7 +1,6 @@
 package com.niit.software1721.fragment;
 
-import android.content.Context;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,20 +18,17 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.niit.software1721.R;
+import com.niit.software1721.activity.CourseVideoActivity;
 import com.niit.software1721.adapter.AdViewPagerAdapter;
 import com.niit.software1721.adapter.CourseRecyclerAdapter;
 import com.niit.software1721.entity.AdImage;
 import com.niit.software1721.entity.Course;
 import com.niit.software1721.utils.HttpsUtil;
-import com.niit.software1721.utils.IOUtils;
-import com.niit.software1721.utils.NetworkUtils;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.ref.WeakReference;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,7 +79,7 @@ public class CourseFragment extends Fragment implements ViewPager.OnPageChangeLi
 //        adHandler.sendEmptyMessageDelayed(MSG_AD_ID, 5000);
         new AdSlideThread().start();
 
-        rvCourse=view.findViewById(R.id.gv_courses);
+        rvCourse=view.findViewById(R.id.rv_courses);
 //        initCourse();
 //        loadCourseByNet();
         loadCourseByOKHttp();
@@ -91,8 +87,8 @@ public class CourseFragment extends Fragment implements ViewPager.OnPageChangeLi
     }
 
     private void update(final List<Course> courses) {
-        CourseRecyclerAdapter adapter=new CourseRecyclerAdapter(courses);
-        rvCourse.setLayoutManager(new GridLayoutManager(getContext(),2));
+        CourseRecyclerAdapter adapter = new CourseRecyclerAdapter(courses);
+        rvCourse.setLayoutManager(new GridLayoutManager(getContext(), 2));
         rvCourse.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new CourseRecyclerAdapter.OnItemClickListener() {
@@ -100,8 +96,12 @@ public class CourseFragment extends Fragment implements ViewPager.OnPageChangeLi
             public void onItemClick(View view, int position) {
                 Course course = courses.get(position);
                 // 跳转到课程详情界面
-                Toast.makeText(getContext(), "点击了：" + course.getTitle(),
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "点击了：" + course.getTitle(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), CourseVideoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("course", course);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }
@@ -248,7 +248,10 @@ public class CourseFragment extends Fragment implements ViewPager.OnPageChangeLi
                     e.printStackTrace();
                 }
                 if (adHandler != null) {
-                    adHandler.sendEmptyMessage(MSG_AD_ID);
+                    Message msg = adHandler.obtainMessage();
+                    msg.what = MSG_AD_ID;
+                    adHandler.sendMessage(msg);
+//                    adHandler.sendEmptyMessage(MSG_AD_ID);
                 }
             }
         }

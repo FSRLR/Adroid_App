@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.niit.software1721.R;
+import com.niit.software1721.activity.HistoryActivity;
 import com.niit.software1721.activity.LoginActivity;
 import com.niit.software1721.activity.SettingActivity;
 import com.niit.software1721.activity.UserInfoActivity;
@@ -82,6 +83,8 @@ public class MyInfoFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (isLogin){
+                    Intent intent = new Intent(mContext, HistoryActivity.class);
+                    startActivityForResult(intent, 1);
 
                 }else {
                     Toast.makeText(mContext,"请先登录",Toast.LENGTH_LONG).show();

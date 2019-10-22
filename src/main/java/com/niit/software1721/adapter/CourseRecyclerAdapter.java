@@ -57,7 +57,7 @@ public class CourseRecyclerAdapter extends RecyclerView.Adapter<CourseRecyclerAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
         Course course=courses.get(i);
         viewHolder.ivImg.setImageResource(imgIds.get(i));
         viewHolder.tvTitle.setText(course.getTitle());
@@ -66,7 +66,7 @@ public class CourseRecyclerAdapter extends RecyclerView.Adapter<CourseRecyclerAd
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    itemClickListener.onItemClick(viewHolder.itemView, i);
                 }
             });
         }

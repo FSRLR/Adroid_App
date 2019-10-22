@@ -12,6 +12,9 @@ import android.view.WindowManager;
 
 import com.niit.software1721.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class StatusUtils {
     /**
      * 设置沉浸式状态栏
@@ -53,5 +56,12 @@ public class StatusUtils {
                 activity.finish();
             }
         });
+    }
+
+    public static String getTime(){
+        Date dateTime = new Date();
+        String strDateFormat = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
+        return sdf.format(dateTime);
     }
 }
